@@ -1,0 +1,11 @@
+# Build Products
+[Bb]in/
+
+# Eclipse
+.settings/
+.metadata/
+
+# IntelliJ
+.idea/
+*.iml
+
