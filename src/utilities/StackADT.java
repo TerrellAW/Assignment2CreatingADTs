@@ -21,7 +21,7 @@ public interface StackADT<E>
      *
      * Precondition: The item is not {@code null}.
      * Precondition: The stack is not full.
-     * * Postcondition: The stack’s size increases by one.
+     * Postcondition: The stack’s size increases by one.
      * Postcondition: The top of the stack becomes the pushed item.
      *
      * @return True for a successful push, false for a failed push.
@@ -49,7 +49,7 @@ public interface StackADT<E>
      *
      * @author TerrellAW
      * @author Youssif Al-Halawche
-     * * Precondition: The stack is not {@code empty}.
+     * Precondition: The stack is not {@code empty}.
      *
      * Postcondition: The stack remains unchanged.
      * Postcondition: The returned value equals the current top element.
@@ -67,7 +67,7 @@ public interface StackADT<E>
      * Precondition: None, it can always be called without preassumptions.
      *
      * Postcondition: Stack remains unchanged.
-     * * @return Integer containing total amount of items in the stack.
+     * @return Integer containing total amount of items in the stack.
      */
     public int size();
 
@@ -76,7 +76,7 @@ public interface StackADT<E>
      *
      * @author TerrellAW
      * @author Youssif Al-Halawche
-     * * Precondition: None.
+     * Precondition: None.
      *
      * Postcondition: Stack becomes empty.
      * Postcondition: size() returns 0.
@@ -95,7 +95,7 @@ public interface StackADT<E>
      *
      * Postcondition: Returns {@code true} if the value exists in the stack otherwise {@code false}.
      * Postcondition: Stack remains unchanged.
-     * * @return {@code True} if the {@code value} exists in the stack, {@code False} if it does not.
+     * @return {@code True} if the {@code value} exists in the stack, {@code False} if it does not.
      */
     public Boolean contains(E value);
 }
