@@ -6,6 +6,7 @@ package utilities;
  * TODO: Consider exceptions, more pre-conditions and post-conditions.
  *
  * @author TerrellAW
+ * @author Youssif Al-Halawche
  * @version 21-10-2025
  */
 public interface StackADT<E>
