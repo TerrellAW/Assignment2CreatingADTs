@@ -1,24 +1,55 @@
 package implementations;
 
+import java.util.Arrays;
 import utilities.Iterator;
 import utilities.ListADT;
 
 public class MyArrayList<E> implements Iterator, ListADT
 {
+	private E[] array;
+
+	/**
+	 * 
+	 *
+	 * @author TerrellAW
+	 */
 	public int size() {
-
+		int size = array.length;
+		return size;
 	}
 	
+	/**
+	 *
+	 *
+	 * @author TerrellAW
+	 */
 	public void clear() {
-
+		array = null;
 	}
 	
+	/**
+	 *
+	 *
+	 * @author TerrellAW
+	 */
 	public boolean add( int index, E toAdd ) throws NullPointerException, IndexOutOfBoundsException {
-
+		
 	}
 	
+	/**
+	 *
+	 *
+	 * @author TerrellAW
+	 */
 	public boolean add( E toAdd ) throws NullPointerException {
-
+		if (toAdd == null) { // Throw error if element is null
+			throw new NullPointerException("Element to add cannot be null");
+		}
+		
+		E[] newArray = Arrays.copyOf(array, array.length + 1); // Increase size of array by creating new one
+		newArray[array.length] = toAdd; // Add element to the new array
+		array = newArray; // Replace old array with new array
+		return true; // Add successful
 	}
 	
 	public boolean addAll( ListADT<? extends E> toAdd ) throws NullPointerException {
