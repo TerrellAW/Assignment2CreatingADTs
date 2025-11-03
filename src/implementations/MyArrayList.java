@@ -44,10 +44,9 @@ public class MyArrayList<E> implements Iterator<E>, ListADT<E>
 		System.arraycopy(array, 0, firstSegment, 0, index); // Copy first segment to new array
 		System.arraycopy(array, index, secondSegment, 0, array.length - index); // Copy second segment to new array
 		firstSegment[index] = toAdd; // Add element to empty space at the end of first segment
-		Object[] newArray = new Object[firstSegment.length + secondSegment.length]; // Create new array large enough for both segments
-	    System.arraycopy(firstSegment, 0, newArray, 0, firstSegment.length); // Copy first segment into new array
-		System.arraycopy(secondSegment, 0, newArray, firstSegment.length, secondSegment.length); // Copy second segment into new array
-		array = newArray; // Replace old array with new array
+		array = new Object[firstSegment.length + secondSegment.length]; // Create new array large enough for both segments
+	    System.arraycopy(firstSegment, 0, array, 0, firstSegment.length); // Copy first segment into new array
+		System.arraycopy(secondSegment, 0, array, firstSegment.length, secondSegment.length); // Copy second segment into new array
 		return true; // Add successful
 	}
 	
