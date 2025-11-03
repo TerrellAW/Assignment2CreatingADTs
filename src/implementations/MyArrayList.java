@@ -3,9 +3,9 @@ package implementations;
 import utilities.Iterator;
 import utilities.ListADT;
 
-public class MyArrayList<E> implements Iterator, ListADT
+public class MyArrayList<E> implements Iterator<E>, ListADT<E>
 {
-	private E[] array;
+	private Object[] array;
 
 	/**
 	 * 
@@ -38,12 +38,12 @@ public class MyArrayList<E> implements Iterator, ListADT
 
 		// TODO: Error handling for IndexOutOfBoundsException
 
-		E[] firstSegment = (E[]) new Object[index + 1]; // Create array to hold first segment with empty space
-		E[] secondSegment = (E[]) new Object[array.length - index]; // Create array to hold second segment
+		Object[] firstSegment = new Object[index + 1]; // Create array to hold first segment with empty space
+		Object[] secondSegment = new Object[array.length - index]; // Create array to hold second segment
 		System.arraycopy(array, 0, firstSegment, 0, index); // Copy first segment to new array
 		System.arraycopy(array, index, secondSegment, 0, array.length - index); // Copy second segment to new array
 		firstSegment[index] = toAdd; // Add element to empty space at the end of first segment
-		E[] newArray = (E[]) new Object[firstSegment.length + secondSegment.length]; // Create new array large enough for both segments
+		Object[] newArray = new Object[firstSegment.length + secondSegment.length]; // Create new array large enough for both segments
 	    System.arraycopy(firstSegment, 0, newArray, 0, firstSegment.length); // Copy first segment into new array
 		System.arraycopy(secondSegment, 0, newArray, firstSegment.length, secondSegment.length); // Copy second segment into new array
 		array = newArray; // Replace old array with new array
@@ -60,9 +60,9 @@ public class MyArrayList<E> implements Iterator, ListADT
 			throw new NullPointerException("Element to add cannot be null");
 		}
 		
-		E[] newArray; // Create new array
-	   	System.arraycopy(array, 0, newArray, 0, array.length + 1); // Increase size using new array
-		newArray[newArray.length] = toAdd; // Add element to the new array
+		Object[] newArray = new Object[array.length + 1]; // Create new larger array
+	   	System.arraycopy(array, 0, newArray, 0, array.length); // Copy data from old array
+		newArray[newArray.length - 1] = toAdd; // Add element to the new array
 		array = newArray; // Replace old array with new array
 		return true; // Add successful
 	}
