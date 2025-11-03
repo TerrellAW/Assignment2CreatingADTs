@@ -1,6 +1,5 @@
 package implementations;
 
-import java.util.Arrays;
 import utilities.Iterator;
 import utilities.ListADT;
 
@@ -33,7 +32,22 @@ public class MyArrayList<E> implements Iterator, ListADT
 	 * @author TerrellAW
 	 */
 	public boolean add( int index, E toAdd ) throws NullPointerException, IndexOutOfBoundsException {
-		
+		if (toAdd == null) { // Throw error if element is null
+			throw new NullPointerException("Element to add cannot be null");
+		}
+
+		// TODO: Error handling for IndexOutOfBoundsException
+
+		E[] firstSegment = (E[]) new Object[index + 1]; // Create array to hold first segment with empty space
+		E[] secondSegment = (E[]) new Object[array.length - index]; // Create array to hold second segment
+		System.arraycopy(array, 0, firstSegment, 0, index); // Copy first segment to new array
+		System.arraycopy(array, index, secondSegment, 0, array.length - index); // Copy second segment to new array
+		firstSegment[index] = toAdd; // Add element to empty space at the end of first segment
+		E[] newArray = (E[]) new Object[firstSegment.length + secondSegment.length]; // Create new array large enough for both segments
+	    System.arraycopy(firstSegment, 0, newArray, 0, firstSegment.length); // Copy first segment into new array
+		System.arraycopy(secondSegment, 0, newArray, firstSegment.length, secondSegment.length); // Copy second segment into new array
+		array = newArray; // Replace old array with new array
+		return true; // Add successful
 	}
 	
 	/**
@@ -46,8 +60,9 @@ public class MyArrayList<E> implements Iterator, ListADT
 			throw new NullPointerException("Element to add cannot be null");
 		}
 		
-		E[] newArray = Arrays.copyOf(array, array.length + 1); // Increase size of array by creating new one
-		newArray[array.length] = toAdd; // Add element to the new array
+		E[] newArray; // Create new array
+	   	System.arraycopy(array, 0, newArray, 0, array.length + 1); // Increase size using new array
+		newArray[newArray.length] = toAdd; // Add element to the new array
 		array = newArray; // Replace old array with new array
 		return true; // Add successful
 	}
