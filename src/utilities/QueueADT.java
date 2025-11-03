@@ -123,5 +123,33 @@ public interface QueueADT<T>
 	 * @author Estefano Campana
 	 */
 	public T[] toArray();
-	
+	/**
+	 * Clears all the items in the queue.
+	 * 
+	 * Precondition: The queue must exist and have at least 1 element in it.
+	 * 
+	 * Postcondition: All items in the queue are cleared.
+	 * 
+	 * @author Estefano Campana
+	 */
+	public void clear();
+	/**
+	 * Method that returns an iterator for the over the items contained in this queue.
+	 * 
+	 * Precondition: The queue must exist and have at least 1 element in it.
+	 * 
+	 * Postcondition: An object of class Iterator<T> is returned, leaving all items untouched.
+	 * 
+	 * 
+	 * @return Iterator<T> object of class Iterator<T>.
+	 * @author Estefano Campana
+	 */
+	public Iterator<T> iterator();
+	/**
+	 * Method that checks if another queue has the same items in the same order.
+	 * @param other object that implements QueueAdt<T>
+	 * @return True if the queue to compare has the same items in the same order. False if it fails.
+	 * @author Estefano Campana
+	 */
+	public boolean equals(QueueADT<T> that);
 }
