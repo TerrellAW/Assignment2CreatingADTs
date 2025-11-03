@@ -35,8 +35,9 @@ public class MyArrayList<E> implements Iterator<E>, ListADT<E>
 		if (toAdd == null) { // Throw error if element is null
 			throw new NullPointerException("Element to add cannot be null");
 		}
-
-		// TODO: Error handling for IndexOutOfBoundsException
+		if (index < 0 || index > size()) { // Throw error if index is out of bounds
+			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size());
+		}
 
 		Object[] firstSegment = new Object[index + 1]; // Create array to hold first segment with empty space
 		Object[] secondSegment = new Object[array.length - index]; // Create array to hold second segment
