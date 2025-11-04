@@ -3,7 +3,7 @@ package implementations;
 import utilities.Iterator;
 import utilities.ListADT;
 
-public class MyDLL<E> implements Iterator, ListADT
+public class MyDLL<E> implements Iterator<E>, ListADT<E>
 {
 	public int size() {
 
