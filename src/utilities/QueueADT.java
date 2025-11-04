@@ -1,5 +1,7 @@
 package utilities;
 
+import java.util.NoSuchElementException;
+
 /**
  * QueueADT.java
  * 
@@ -11,6 +13,70 @@ package utilities;
  */
 public interface QueueADT<T>
 {
+
+	/**
+	 * Retrieves / Removes element at front queue
+	 * 
+	 * Precondition: Queue not empty
+	 * 
+	 * Postcondition: Element removed and returned
+	 * 
+	 * @return the element at front of queue
+	 * @throws NoSuchElementException if the queue is empty
+	 * @author Riley Yonda
+	 */
+	public T remove() throws NoSuchElementException;
+
+	/**
+	 * Adds element to end of queue
+	 * 
+	 * Precondition: Queue capacity cannot be exceeded
+	 * 
+	 * Postcondition: Added to end of queue
+     * @param item to be added to the queue
+	 * @return true if the adding of element is successful
+	 * @throws IllegalStateException if elements of queue exceeds capacity / Queue full
+	 * @author Riley Yonda
+	 */
+	public boolean add(T item) throws IllegalStateException;
+
+	/**
+	 * Insert element at end of queue
+	 * 
+	 * Precondition: Container cannot be full
+	 * 
+	 * Postcondition: As long as capacity isn't exceeded, element is added 
+	 * 
+	 * @param item to be added to the queue
+	 * @return if element is added to queue, returns true, otherwise false
+	 * @author Riley Yonda
+	 */
+	public boolean offer(T item);
+
+	/**
+	 * Removes / Returns element at front of queue
+	 * 
+	 * Precondition: no existing elements needed as it returns null if empty
+	 * 
+	 * Postcondition: Element removed
+	 * 
+	 * @return Element at front of queue, null if empty
+	 * @author Riley Yonda
+	 */
+	public T poll();
+	
+	/**
+	 * Returns element at front of queue
+	 * 
+	 * Precondition: no existing elements needed as it returns null if empty
+	 * 
+	 * Postcondition: First element of container is returned
+	 * 
+	 * @return Element at front of queue, null if empty
+	 * @author Riley Yonda
+	 */
+	public T peek();
+
 	/**
 	 * Method to check the size of the queue.
 	 * 
@@ -57,4 +123,33 @@ public interface QueueADT<T>
 	 * @author Estefano Campana
 	 */
 	public T[] toArray();
+	/**
+	 * Clears all the items in the queue.
+	 * 
+	 * Precondition: The queue must exist and have at least 1 element in it.
+	 * 
+	 * Postcondition: All items in the queue are cleared.
+	 * 
+	 * @author Estefano Campana
+	 */
+	public void clear();
+	/**
+	 * Method that returns an iterator for the over the items contained in this queue.
+	 * 
+	 * Precondition: The queue must exist and have at least 1 element in it.
+	 * 
+	 * Postcondition: An object of class Iterator<T> is returned, leaving all items untouched.
+	 * 
+	 * 
+	 * @return Iterator<T> object of class Iterator<T>.
+	 * @author Estefano Campana
+	 */
+	public Iterator<T> iterator();
+	/**
+	 * Method that checks if another queue has the same items in the same order.
+	 * @param other object that implements QueueAdt<T>
+	 * @return True if the queue to compare has the same items in the same order. False if it fails.
+	 * @author Estefano Campana
+	 */
+	public boolean equals(QueueADT<T> that);
 }
