@@ -153,7 +153,11 @@ public class MyArrayList<E> implements ListADT<E>
 	}
 	
 	public boolean isEmpty() {
-		
+		if (this.size() != 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 	
 	public boolean contains( E toFind ) throws NullPointerException {
