@@ -98,4 +98,73 @@ public interface StackADT<E>
      * @return {@code True} if the {@code value} exists in the stack, {@code False} if it does not.
      */
     public Boolean contains(E value);
+
+    /**
+     * Checks if stack is empty
+     *
+     * @author Youssif Al-Halawche
+     *
+     * precondition: no precondition
+     *
+     * postcondition: the stack is not changed and left as it
+     *
+     *
+     * @return true if empty, false is not empty
+     *
+     */
+    public Boolean isEmpty();
+
+    /**
+     * Compares this stack to another object to check if it has the same
+     * values in the same order
+     *
+     * @author Youssif Al-Halawche
+     *
+     * precondition: a stack object must be provided for comparison
+     *
+     * postcondition: the stack remains unchanged
+     *
+     * @return {@code true} if {@code obj} has the same elements in the same order
+     * as StackADT, otherwise returns {@code false}
+     */
+     public Boolean equals(StackADT<E> that);
+
+    /**
+     * generated and returns an array of all the elements in the StackADT in Ascending
+     * order
+     * @author Youssif Al-Halawche
+     *
+     * precondition: No precondition
+     *
+     * postcondition: stack remains unchanged
+     *
+     * @return array containing all elements of this stack
+     */
+     public E[] toArray();
+
+    /**
+     * returns an iterator object over all items in this Stack
+     *
+     * @author Youssif Al-Halawche
+     *
+     * precondition: No precondition
+     *
+     * postcondition: Stack remains unchanged
+     *
+     * @return an {@code Iterator<E>} that allows for iterating over elements of the stack from top to bottom
+     */
+    public Iterator[] iterator();
+
+    /**
+     * Searches for a specific element in the stack
+     *
+     * @author Youssif Al-Halawche
+     * 
+     * precondition: {@code item} is not {@code null}
+     *
+     * postcondition: stack remains unchanged
+     *
+     * @return {@code true} if the item is found,otherwise {@code false}
+     */
+    public Boolean search(E item);
 }
