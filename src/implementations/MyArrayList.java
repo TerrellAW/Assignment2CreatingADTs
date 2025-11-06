@@ -91,7 +91,7 @@ public class MyArrayList<E> implements ListADT<E>
 			throw new IndexOutOfBoundsException("Index (" + index + ") is out of bounds (" + this.size() + ")");
 		}
 		
-		return (E[])array[index];
+		return (E)array[index];
 	}
 	
 	/**
@@ -139,19 +139,23 @@ public class MyArrayList<E> implements ListADT<E>
 	}
 	
 	public E set( int index, E toChange ) throws NullPointerException, IndexOutOfBoundsException {
+		if (toChange == null) {
+			throw new NullPointerException("New value cannot be null");
+		}
+
 
 	}
 	
 	public boolean isEmpty() {
-
+		
 	}
 	
 	public boolean contains( E toFind ) throws NullPointerException {
-
+		
 	}
 	
 	public E[] toArray( E[] toHold ) throws NullPointerException {
-
+		
 	}
 	
 	public Object[] toArray() {
