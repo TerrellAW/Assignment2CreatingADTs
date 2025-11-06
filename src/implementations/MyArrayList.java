@@ -3,7 +3,7 @@ package implementations;
 import utilities.Iterator;
 import utilities.ListADT;
 
-public class MyArrayList<E> implements Iterator<E>, ListADT<E>
+public class MyArrayList<E> implements ListADT<E>
 {
 	private Object[] array;
 
@@ -141,18 +141,27 @@ public class MyArrayList<E> implements Iterator<E>, ListADT<E>
 	}
 	
 	public Object[] toArray() {
-
+		return array;
 	}
 	
 	public Iterator<E> iterator() {
-
+		return new ArrayIterator();
 	}
 	
-	public boolean hasNext() {
-
-	}
-	
-	public E next() throws NoSuchElementException {
-
+	private class ArrayIterator implements Iterator<E> {
+		private int cursor = 0;
+		private int lastRet = -1;
+		
+		public boolean hasNext() {
+			return cursor < this.size();
+		}
+		
+		public E next() throws NoSuchElementException {
+			if (!hasNext()) {
+				throw new NoSuchElementException();
+			}
+			lastRet = cursor;
+			return list.get(cursor++);
+		}
 	}
 }
