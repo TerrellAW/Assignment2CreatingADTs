@@ -75,11 +75,19 @@ public class MyArrayList<E> implements ListADT<E>
 	}
 	
 	public boolean addAll( ListADT<? extends E> toAdd ) throws NullPointerException {
+		if (toAdd == null) {
+			throw new NullPointerException("Cannot add elements from a null list");
+		}
 
+		Iterator<? extends E> it = toAdd.iterator();
+		while (it.hasNext()) {
+			this.add(it.next());
+		}
+		return true;
 	}
 	
 	public E get( int index ) throws IndexOutOfBoundsException {
-
+		
 	}
 	
 	/**
