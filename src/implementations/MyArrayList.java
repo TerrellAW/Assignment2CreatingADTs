@@ -141,9 +141,15 @@ public class MyArrayList<E> implements ListADT<E>
 	public E set( int index, E toChange ) throws NullPointerException, IndexOutOfBoundsException {
 		if (toChange == null) {
 			throw new NullPointerException("New value cannot be null");
+		} else if (index >= this.size()) {
+			throw new IndexOutOfBoundsException("Index (" + index + ") is out of bounds (" + this.size() + ")");
 		}
 
+		E element = (E)array[index];
 
+		array[index] = toChange;
+
+		return element;
 	}
 	
 	public boolean isEmpty() {
