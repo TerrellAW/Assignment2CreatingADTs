@@ -153,7 +153,7 @@ public class MyArrayList<E> implements ListADT<E>
 		private int lastRet = -1;
 		
 		public boolean hasNext() {
-			return cursor < this.size();
+			return cursor < size();
 		}
 		
 		public E next() throws NoSuchElementException {
@@ -161,7 +161,7 @@ public class MyArrayList<E> implements ListADT<E>
 				throw new NoSuchElementException();
 			}
 			lastRet = cursor;
-			return list.get(cursor++);
+			return get(cursor++);
 		}
 	}
 }
