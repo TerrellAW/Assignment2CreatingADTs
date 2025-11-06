@@ -87,7 +87,11 @@ public class MyArrayList<E> implements ListADT<E>
 	}
 	
 	public E get( int index ) throws IndexOutOfBoundsException {
+		if (index >= this.size()) {
+			throw new IndexOutOfBoundsException("Index (" + index + ") is out of bounds (" + this.size() + ")");
+		}
 		
+		return (E[])array[index];
 	}
 	
 	/**
