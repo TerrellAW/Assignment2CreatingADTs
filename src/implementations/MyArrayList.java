@@ -1,5 +1,7 @@
 package implementations;
 
+import java.util.NoSuchElementException; // Iterator interface contract specifies this
+
 import utilities.Iterator;
 import utilities.ListADT;
 
@@ -158,7 +160,7 @@ public class MyArrayList<E> implements ListADT<E>
 		
 		public E next() throws NoSuchElementException {
 			if (!hasNext()) {
-				throw new NoSuchElementException();
+				throw new NoSuchElementException("No more elements");
 			}
 			lastRet = cursor;
 			return get(cursor++);
