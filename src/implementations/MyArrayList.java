@@ -159,9 +159,53 @@ public class MyArrayList<E> implements ListADT<E>
 			return true;
 		}
 	}
+
+	// TODO: Go through this stuff below
+	public int partition(int low, int high) {
+		E pivot = elements[high];
+		int i = (low - 1);
+		for (int j = low; j < high; j++) {
+			if (((Comparable<E>) elements[j]).compareTo(pivot) <= 0) {
+				i++;
+
+				E temp = elements[i];
+				elements[i] = elements[j];
+				elements[j] = temp;
+			}
+		}
+
+		E temp = elements[i + 1];
+		elements[i + 1] = elements[high];
+		elements[high] = temp;
+
+		return i + 1;
+	}
+
+	public MyArrayList quickSort(int low, int high) {
+		if (low < high) {
+			int pi = partition(low, high);
+
+			quickSort(low, pi - 1);
+			quickSort(pi + 1, high);
+		}
+	}
+
+	public MyArrayList sort() {
+		quicksort(0, size - 1);
+	}
+
+	public int binarySearch(E target) {
+		if (elements == null || size == 0) {
+			return -1;
+		}
+
+		// TODO: Implement binary search
+	}
 	
 	public boolean contains( E toFind ) throws NullPointerException {
-		
+		if (toFind == null) {
+			throw new NullPointerException("Can't search for null");
+		}
 	}
 	
 	public E[] toArray( E[] toHold ) throws NullPointerException {
