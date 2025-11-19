@@ -6,7 +6,12 @@ import utilities.Iterator;
 import utilities.ListADT;
 
 /**
+ * Dynamically allocated array data structure.
+ * Stores elements in a list that uses a primitive array as the underlying data structure.
  *
+ * @author TerrellAW
+ * @version 19-11-2025
+ * @param <E> The type of elements held in this list.
  */
 public class MyArrayList<E> implements ListADT<E>
 {
@@ -193,17 +198,25 @@ public class MyArrayList<E> implements ListADT<E>
 	 * @throws NullPointerException if the element to remove is null.
 	 * @author TerrellAW
 	 */
-	public E remove( E toRemove ) throws NullPointerException { // TODO: Fix this, use linearSearch
+	public E remove( E toRemove ) throws NullPointerException {
 		if (toRemove == null) { // Throw error if element is null
 			throw new NullPointerException("Element to remove must exist");
 		}
 
-		@SuppressWarnings("unchecked")
-		E element = (E)array[size() - 1]; // Store element that will be removed
+		int index = linearSearch(toRemove);
 
-		Object[] newArray = new Object[array.length - 1]; // Create shorter array
-		System.arraycopy(array, 0, newArray, 0, newArray.length); // Copy all but last element to shorter array
-		array = newArray; // Replace old array with new array
+		@SuppressWarnings("unchecked")
+		E element = (E)array[index]; // Store element that will be removed
+
+		Object[] firstSegment = new Object[index - 1]; // Create array to hold first segment
+		Object[] secondSegment = new Object[array.length - index]; // Create array to hold second segment
+		
+		System.arraycopy(array, 0, firstSegment, 0, firstSegment.length); // Copy segment from before index
+		System.arraycopy(array, index + 1, secondSegment, 0, secondSegment.length); // Copy segment from after index
+		
+		array = new Object[firstSegment.length + secondSegment.length]; // Create new array large enough for both segments
+	    System.arraycopy(firstSegment, 0, array, 0, firstSegment.length); // Copy first segment into new array
+		System.arraycopy(secondSegment, 0, array, firstSegment.length, secondSegment.length); // Copy second segment into new array
 
 		return element; // Return removed element
 	}
@@ -260,25 +273,27 @@ public class MyArrayList<E> implements ListADT<E>
 	 *
 	 * Precondition: The array is not null and has elements.
 	 *
-	 * Postcondition: True is returned if the element is found, otherwise false.
+	 * Postcondition: Index is returned if the element is found, otherwise negative one.
 	 *
 	 * @param target The element to search for.
-	 * @return True if the element is found, otherwise false.
+	 * @return Index if the element is found, otherwise -1.
 	 * @author TerrellAW
 	 */
-	public boolean linearSearch(E target) { // TODO: Adapt linearSearch so it can be used by other methods
+	public int linearSearch( E target ) { 
 		if (array == null || size() == 0) {
-			return false; // TODO: Return -1
+			return -1;
 		}
+
+		int index = 0;
 
 		Iterator<? extends E> it = this.iterator();
 		while (it.hasNext()) {
+			index++;
 			if (it.next().equals(target)) {
-				return true; // TODO: Return index
+				return index;
 			}
 		}
-
-		return false; // TODO: Return -1
+		return -1;
 	}
 	
 	/**
@@ -298,7 +313,12 @@ public class MyArrayList<E> implements ListADT<E>
 			throw new NullPointerException("Can't search for null");
 		}
 
-		return linearSearch(toFind); // TODO: Change this when changes are made to linearSearch
+		int result = linearSearch(toFind);
+
+		if (result == -1) {
+			return false;
+		}
+		return true;
 	}
 	
 	/**
@@ -362,7 +382,10 @@ public class MyArrayList<E> implements ListADT<E>
 	}
 	
 	/**
+	 * Private subclass for iterating through <code>MyArrayList</code>.
 	 *
+	 * @author TerrellAW
+	 * @version 19-11-2025
 	 */
 	private class ArrayIterator implements Iterator<E> {
 		private int cursor = 0;
