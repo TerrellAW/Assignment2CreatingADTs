@@ -5,13 +5,21 @@ import java.util.NoSuchElementException; // Iterator interface contract specifie
 import utilities.Iterator;
 import utilities.ListADT;
 
+/**
+ *
+ */
 public class MyArrayList<E> implements ListADT<E>
 {
 	private Object[] array;
 
 	/**
-	 * 
+	 * Returns the number of elements in the list.
 	 *
+	 * Precondition: None.
+	 *
+	 * Postcondition: The current size of the list is returned.
+	 *
+	 * @return The current size of the list.
 	 * @author TerrellAW
 	 */
 	public int size() {
@@ -20,7 +28,11 @@ public class MyArrayList<E> implements ListADT<E>
 	}
 	
 	/**
+	 * Clears all elements from the list, resetting it to an empty state.
 	 *
+	 * Precondition: None.
+	 *
+	 * Postcondition: The list is empty.
 	 *
 	 * @author TerrellAW
 	 */
@@ -29,8 +41,17 @@ public class MyArrayList<E> implements ListADT<E>
 	}
 	
 	/**
+	 * Adds a new element at the specified index in the list.
 	 *
+	 * Precondition: Element to add is not null and index is within bounds.
 	 *
+	 * Postcondition: The element is added at the specified index and the size of the list increases by one.
+	 *
+	 * @param index The position where the new element will be added.
+	 * @param toAdd The element to add to the list.
+	 * @return True if the addition is successful, otherwise throws exceptions.
+	 * @throws NullPointerException if the element to add is null.
+	 * @throws IndexOutOfBoundsException if the specified index is beyond the size of this list.
 	 * @author TerrellAW
 	 */
 	public boolean add( int index, E toAdd ) throws NullPointerException, IndexOutOfBoundsException {
@@ -57,8 +78,15 @@ public class MyArrayList<E> implements ListADT<E>
 	}
 	
 	/**
+	 * Adds a new element to the end of the list.
 	 *
+	 * Precondition: Element to add is not null.
 	 *
+	 * Postcondition: The element is added to the end of the list and the size of the list increases by one.
+	 *
+	 * @param toAdd The element to add to the list.
+	 * @return True if the addition is successful, otherwise throws an exception.
+	 * @throws NullPointerException if the element to add is null.
 	 * @author TerrellAW
 	 */
 	public boolean add( E toAdd ) throws NullPointerException {
@@ -74,6 +102,18 @@ public class MyArrayList<E> implements ListADT<E>
 		return true; // Add successful
 	}
 	
+	/**
+	 * Adds all elements from another collection to this list.
+	 *
+	 * Precondition: The collection to add is not null.
+	 *
+	 * Postcondition: All elements from the specified collection are added to this list and the size of this list increases as needed.
+	 *
+	 * @param toAdd The collection of elements to add.
+	 * @return True if the addition is successful, otherwise throws an exception.
+	 * @throws NullPointerException if the list to add is null.
+	 * @author TerrellAW
+	 */
 	public boolean addAll( ListADT<? extends E> toAdd ) throws NullPointerException {
 		if (toAdd == null) {
 			throw new NullPointerException("Cannot add elements from a null list");
@@ -86,6 +126,18 @@ public class MyArrayList<E> implements ListADT<E>
 		return true;
 	}
 	
+	/**
+	 * Retrieves the element at the specified index in the list.
+	 *
+	 * Precondition: The index is within the bounds of this list.
+	 *
+	 * Postcondition: The element at the specified index is returned.
+	 *
+	 * @param index The position of the element to retrieve.
+	 * @return The element at the specified index.
+	 * @throws IndexOutOfBoundsException if the specified index is beyond the size of this list.
+	 * @author TerrellAW
+	 */
 	public E get( int index ) throws IndexOutOfBoundsException {
 		if (index >= this.size()) {
 			throw new IndexOutOfBoundsException("Index (" + index + ") is out of bounds (" + this.size() + ")");
@@ -97,8 +149,15 @@ public class MyArrayList<E> implements ListADT<E>
 	}
 	
 	/**
+	 * Removes the element at the specified index from the list.
 	 *
+	 * Precondition: The index is within the bounds of this list.
 	 *
+	 * Postcondition: The element at the specified index is removed and the size of the list decreases by one.
+	 *
+	 * @param index The position of the element to remove.
+	 * @return The removed element.
+	 * @throws IndexOutOfBoundsException if the specified index is beyond the size of this list.
 	 * @author TerrellAW
 	 */
 	public E remove( int index ) throws IndexOutOfBoundsException {
@@ -123,11 +182,18 @@ public class MyArrayList<E> implements ListADT<E>
 	}
 	
 	/**
+	 * Removes the specified element from the list.
 	 *
+	 * Precondition: The element to remove is not null.
 	 *
+	 * Postcondition: The specified element is removed from the list and the size of the list decreases by one.
+	 *
+	 * @param toRemove The element to remove from the list.
+	 * @return The removed element, or null if the element was not found.
+	 * @throws NullPointerException if the element to remove is null.
 	 * @author TerrellAW
 	 */
-	public E remove( E toRemove ) throws NullPointerException {
+	public E remove( E toRemove ) throws NullPointerException { // TODO: Fix this, use linearSearch
 		if (toRemove == null) { // Throw error if element is null
 			throw new NullPointerException("Element to remove must exist");
 		}
@@ -142,6 +208,20 @@ public class MyArrayList<E> implements ListADT<E>
 		return element; // Return removed element
 	}
 	
+	/**
+	 * Replaces the element at the specified index with a new element.
+	 *
+	 * Precondition: The new value is not null and the index is within bounds.
+	 *
+	 * Postcondition: The element at the specified index is replaced by the new element and the original element is returned.
+	 *
+	 * @param index The position of the element to replace.
+	 * @param toChange The new element to set.
+	 * @return The replaced element.
+	 * @throws NullPointerException if the new value is null.
+	 * @throws IndexOutOfBoundsException if the index is beyond the size of this list.
+	 * @author TerrellAW
+	 */
 	public E set( int index, E toChange ) throws NullPointerException, IndexOutOfBoundsException {
 		if (toChange == null) {
 			throw new NullPointerException("New value cannot be null");
@@ -157,6 +237,16 @@ public class MyArrayList<E> implements ListADT<E>
 		return element;
 	}
 	
+	/**
+	 * Checks if the list is empty.
+	 *
+	 * Precondition: None.
+	 *
+	 * Postcondition: True is returned if the list has no elements, otherwise false.
+	 *
+	 * @return True if list is empty, false if not.
+	 * @author TerrellAW
+	 */
 	public boolean isEmpty() {
 		if (this.size() != 0) {
 			return false;
@@ -165,29 +255,64 @@ public class MyArrayList<E> implements ListADT<E>
 		}
 	}
 
-	public boolean linearSearch(E target) {
+	/**
+	 * Searches for a target element in the list using linear search algorithm.
+	 *
+	 * Precondition: The array is not null and has elements.
+	 *
+	 * Postcondition: True is returned if the element is found, otherwise false.
+	 *
+	 * @param target The element to search for.
+	 * @return True if the element is found, otherwise false.
+	 * @author TerrellAW
+	 */
+	public boolean linearSearch(E target) { // TODO: Adapt linearSearch so it can be used by other methods
 		if (array == null || size() == 0) {
-			return false;
+			return false; // TODO: Return -1
 		}
 
 		Iterator<? extends E> it = this.iterator();
 		while (it.hasNext()) {
 			if (it.next().equals(target)) {
-				return true;
+				return true; // TODO: Return index
 			}
 		}
 
-		return false;
+		return false; // TODO: Return -1
 	}
 	
+	/**
+	 * Checks if the list contains a specific element.
+	 *
+	 * Precondition: The element to find is not null.
+	 *
+	 * Postcondition: True is returned if the element is found, otherwise false.
+	 *
+	 * @param toFind The element to search for in the list.
+	 * @return True if the element is found, otherwise false.
+	 * @throws NullPointerException if the element to find is null.
+	 * @author TerrellAW
+	 */
 	public boolean contains( E toFind ) throws NullPointerException {
 		if (toFind == null) {
 			throw new NullPointerException("Can't search for null");
 		}
 
-		return linearSearch(toFind);
+		return linearSearch(toFind); // TODO: Change this when changes are made to linearSearch
 	}
 	
+	/**
+	 * Converts the list into an array.
+	 *
+	 * Precondition: The provided array is not null.
+	 *
+	 * Postcondition: An array containing all the elements of the list is returned. Array will be enlarged as needed.
+	 *
+	 * @param toHold The array to hold the elements. If too small, a new one will be created.
+	 * @return An array containing all the elements of the list.
+	 * @throws NullPointerException if the provided array is null.
+	 * @author TerrellAW
+	 */
 	public E[] toArray( E[] toHold ) throws NullPointerException {
 		if (toHold == null) {
 			throw new NullPointerException("Can't use null array.");
@@ -208,21 +333,65 @@ public class MyArrayList<E> implements ListADT<E>
 		return toHold;
 	}
 	
+	/**
+	 * Returns the internal array representation of the list.
+	 *
+	 * Precondition: None.
+	 *
+	 * Postcondition: The internal array is returned.
+	 *
+	 * @return The internal array representation of the list.
+	 * @author TerrellAW
+	 */
 	public Object[] toArray() {
 		return array;
 	}
 	
+	/**
+	 * Returns an iterator.
+	 *
+	 * Precondition: None.
+	 *
+	 * Postcondition: An iterator is returned for traversing the list.
+	 *
+	 * @return An iterator for the list.
+	 * @author TerrellAW
+	 */
 	public Iterator<E> iterator() {
 		return new ArrayIterator();
 	}
 	
+	/**
+	 *
+	 */
 	private class ArrayIterator implements Iterator<E> {
 		private int cursor = 0;
 		
+		/**
+		 * Checks if there are more elements after the cursor.
+		 *
+		 * Precondition: None.
+		 *
+		 * Postcondition: True is returned if there are more elements, otherwise false.
+		 *
+		 * @return True if there are more elements, otherwise false.
+		 * @author TerrellAW
+		 */
 		public boolean hasNext() {
 			return cursor < size();
 		}
 		
+		/**
+		 * Returns the next element in the iteration.
+		 *
+		 * Precondition: There is a next element.
+		 *
+		 * Postcondition: The next element is returned and the cursor advances.
+		 *
+		 * @return The next element in the iteration.
+		 * @throws NoSuchElementException if there is no next element.
+		 * @author TerrellAW
+		 */
 		public E next() throws NoSuchElementException {
 			if (!hasNext()) {
 				throw new NoSuchElementException("No more elements");
