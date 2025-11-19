@@ -91,6 +91,7 @@ public class MyArrayList<E> implements ListADT<E>
 			throw new IndexOutOfBoundsException("Index (" + index + ") is out of bounds (" + this.size() + ")");
 		}
 		
+		@SuppressWarnings("unchecked")
 		return (E)array[index];
 	}
 	
@@ -104,6 +105,7 @@ public class MyArrayList<E> implements ListADT<E>
 			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size());
 		}
 		
+		@SuppressWarnings("unchecked")
 		E element = (E)array[index]; // Store element that will be removed
 
 		Object[] firstSegment = new Object[index - 1]; // Create array to hold first segment
@@ -129,6 +131,7 @@ public class MyArrayList<E> implements ListADT<E>
 			throw new NullPointerException("Element to remove must exist");
 		}
 
+		@SuppressWarnings("unchecked")
 		E element = (E)array[index]; // Store element that will be removed
 
 		Object[] newArray = new Object[array.length - 1]; // Create shorter array
@@ -145,6 +148,7 @@ public class MyArrayList<E> implements ListADT<E>
 			throw new IndexOutOfBoundsException("Index (" + index + ") is out of bounds (" + this.size() + ")");
 		}
 
+		@SuppressWarnings("unchecked")
 		E element = (E)array[index];
 
 		array[index] = toChange;
@@ -160,56 +164,44 @@ public class MyArrayList<E> implements ListADT<E>
 		}
 	}
 
-	// TODO: Go through this stuff below
-	public int partition(int low, int high) {
-		E pivot = elements[high];
-		int i = (low - 1);
-		for (int j = low; j < high; j++) {
-			if (((Comparable<E>) elements[j]).compareTo(pivot) <= 0) {
-				i++;
-
-				E temp = elements[i];
-				elements[i] = elements[j];
-				elements[j] = temp;
-			}
-		}
-
-		E temp = elements[i + 1];
-		elements[i + 1] = elements[high];
-		elements[high] = temp;
-
-		return i + 1;
-	}
-
-	public MyArrayList quickSort(int low, int high) {
-		if (low < high) {
-			int pi = partition(low, high);
-
-			quickSort(low, pi - 1);
-			quickSort(pi + 1, high);
-		}
-	}
-
-	public MyArrayList sort() {
-		quicksort(0, size - 1);
-	}
-
-	public int binarySearch(E target) {
-		if (elements == null || size == 0) {
+	public int linearSearch(E target) {
+		if (array == null || size() == 0) {
 			return -1;
 		}
 
-		// TODO: Implement binary search
+		// TODO: Implement linear search
 	}
 	
 	public boolean contains( E toFind ) throws NullPointerException {
 		if (toFind == null) {
 			throw new NullPointerException("Can't search for null");
 		}
+
+		int searchResult = linearSearch(toFind);
+
+		if (searchResult == 1) {
+			return searchResult;
+		} else {
+			return false;
+		}
 	}
 	
 	public E[] toArray( E[] toHold ) throws NullPointerException {
+		if (toHold == null) {
+			throw new NullPointerException("Can't use null array.");
+		}
+
+		if (toHold.length < size()) {
+			@SuppressWarnings("unchecked")
+			E[] newArray = (E[]) new Object[size()];
+			toHold = newArray;
+		}
 		
+		for (int i = 0; i < size(); i++) {
+			toHold[i] = array[i];
+		}
+
+		return toHold;
 	}
 	
 	public Object[] toArray() {
