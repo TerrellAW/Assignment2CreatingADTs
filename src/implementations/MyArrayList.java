@@ -18,6 +18,20 @@ public class MyArrayList<E> implements ListADT<E>
 	private Object[] array;
 
 	/**
+	 * Constructor method.
+	 *
+	 * Precondition: None.
+	 *
+	 * Postcondition: Empty array is initialized when MyArrayList object is instantiated.
+	 *
+	 * @return A new MyArrayList object with initialized array.
+	 * @author TerrellAW
+	 */
+	public MyArrayList() {
+		this.array = new Object[0];
+	}
+
+	/**
 	 * Returns the number of elements in the list.
 	 *
 	 * Precondition: None.
@@ -288,10 +302,10 @@ public class MyArrayList<E> implements ListADT<E>
 
 		Iterator<? extends E> it = this.iterator();
 		while (it.hasNext()) {
-			index++;
 			if (it.next().equals(target)) {
 				return index;
 			}
+			index++;
 		}
 		return -1;
 	}
