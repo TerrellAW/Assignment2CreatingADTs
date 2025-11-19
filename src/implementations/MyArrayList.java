@@ -92,7 +92,8 @@ public class MyArrayList<E> implements ListADT<E>
 		}
 		
 		@SuppressWarnings("unchecked")
-		return (E)array[index];
+		E returnValue = (E)array[index];
+		return returnValue;
 	}
 	
 	/**
@@ -132,7 +133,7 @@ public class MyArrayList<E> implements ListADT<E>
 		}
 
 		@SuppressWarnings("unchecked")
-		E element = (E)array[index]; // Store element that will be removed
+		E element = (E)array[size() - 1]; // Store element that will be removed
 
 		Object[] newArray = new Object[array.length - 1]; // Create shorter array
 		System.arraycopy(array, 0, newArray, 0, newArray.length); // Copy all but last element to shorter array
@@ -164,19 +165,19 @@ public class MyArrayList<E> implements ListADT<E>
 		}
 	}
 
-	public int linearSearch(E target) {
+	public boolean linearSearch(E target) {
 		if (array == null || size() == 0) {
-			return -1;
+			return false;
 		}
 
 		Iterator<? extends E> it = this.iterator();
 		while (it.hasNext()) {
 			if (it.next().equals(target)) {
-				return 1;
+				return true;
 			}
 		}
 
-		return -1;
+		return false;
 	}
 	
 	public boolean contains( E toFind ) throws NullPointerException {
@@ -184,13 +185,7 @@ public class MyArrayList<E> implements ListADT<E>
 			throw new NullPointerException("Can't search for null");
 		}
 
-		int searchResult = linearSearch(toFind);
-
-		if (searchResult == 1) {
-			return searchResult;
-		} else {
-			return false;
-		}
+		return linearSearch(toFind);
 	}
 	
 	public E[] toArray( E[] toHold ) throws NullPointerException {
@@ -205,7 +200,9 @@ public class MyArrayList<E> implements ListADT<E>
 		}
 		
 		for (int i = 0; i < size(); i++) {
-			toHold[i] = array[i];
+			@SuppressWarnings("unchecked")
+			E[] newArray = (E[]) new Object[size()];
+			toHold[i] = newArray[i];
 		}
 
 		return toHold;
