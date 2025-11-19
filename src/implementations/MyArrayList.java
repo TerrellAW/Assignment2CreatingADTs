@@ -218,7 +218,6 @@ public class MyArrayList<E> implements ListADT<E>
 	
 	private class ArrayIterator implements Iterator<E> {
 		private int cursor = 0;
-		private int lastRet = -1;
 		
 		public boolean hasNext() {
 			return cursor < size();
@@ -228,7 +227,6 @@ public class MyArrayList<E> implements ListADT<E>
 			if (!hasNext()) {
 				throw new NoSuchElementException("No more elements");
 			}
-			lastRet = cursor;
 			return get(cursor++);
 		}
 	}
