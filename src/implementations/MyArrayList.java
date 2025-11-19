@@ -169,7 +169,14 @@ public class MyArrayList<E> implements ListADT<E>
 			return -1;
 		}
 
-		// TODO: Implement linear search
+		Iterator<? extends E> it = this.iterator();
+		while (it.hasNext()) {
+			if (it.next().equals(target)) {
+				return 1;
+			}
+		}
+
+		return -1;
 	}
 	
 	public boolean contains( E toFind ) throws NullPointerException {
