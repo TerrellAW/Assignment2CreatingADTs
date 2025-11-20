@@ -192,7 +192,11 @@ public class MyArrayList<E> implements ListADT<E>
 			return element;
 		}
 
-		Object[] firstSegment = new Object[index - 1]; // Create array to hold first segment
+		if (array.length == 0) {
+			return null;
+		}
+
+		Object[] firstSegment = new Object[index]; // Create array to hold first segment
 		Object[] secondSegment = new Object[array.length - index]; // Create array to hold second segment
 		
 		System.arraycopy(array, 0, firstSegment, 0, firstSegment.length); // Copy segment from before index
@@ -231,8 +235,8 @@ public class MyArrayList<E> implements ListADT<E>
 			this.clear();
 			return element;
 		}
-
-		Object[] firstSegment = new Object[index - 1]; // Create array to hold first segment
+		// TODO: Redo everything, this is too specific, only accounts for middle indexes
+		Object[] firstSegment = new Object[index]; // Create array to hold first segment
 		Object[] secondSegment = new Object[array.length - index]; // Create array to hold second segment
 		
 		System.arraycopy(array, 0, firstSegment, 0, firstSegment.length); // Copy segment from before index
