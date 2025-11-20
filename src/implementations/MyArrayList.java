@@ -47,7 +47,7 @@ public class MyArrayList<E> implements ListADT<E>
 	}
 	
 	/**
-	 * Clears all elements from the list, resetting it to an empty state.
+	 * Clears all elements from the list by re-initializing it to an empty state.
 	 *
 	 * Precondition: None.
 	 *
@@ -56,7 +56,7 @@ public class MyArrayList<E> implements ListADT<E>
 	 * @author TerrellAW
 	 */
 	public void clear() {
-		array = null;
+		this.array = new Object[0];
 	}
 	
 	/**
@@ -179,13 +179,18 @@ public class MyArrayList<E> implements ListADT<E>
 	 * @throws IndexOutOfBoundsException if the specified index is beyond the size of this list.
 	 * @author TerrellAW
 	 */
-	public E remove( int index ) throws IndexOutOfBoundsException {
+	public E remove( int index ) throws IndexOutOfBoundsException { 
 		if (index < 0 || index > size()) { // Throw error if index is out of bounds
 			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size());
 		}
 		
 		@SuppressWarnings("unchecked")
 		E element = (E)array[index]; // Store element that will be removed
+
+		if (array.length == 1 && index == 0) {
+			this.clear();
+			return element;
+		}
 
 		Object[] firstSegment = new Object[index - 1]; // Create array to hold first segment
 		Object[] secondSegment = new Object[array.length - index]; // Create array to hold second segment
@@ -221,6 +226,11 @@ public class MyArrayList<E> implements ListADT<E>
 
 		@SuppressWarnings("unchecked")
 		E element = (E)array[index]; // Store element that will be removed
+
+		if (array.length == 1 && index == 0) {
+			this.clear();
+			return element;
+		}
 
 		Object[] firstSegment = new Object[index - 1]; // Create array to hold first segment
 		Object[] secondSegment = new Object[array.length - index]; // Create array to hold second segment
