@@ -184,6 +184,12 @@ public class MyArrayList<E> implements ListADT<E>
 			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size());
 		}
 		
+		int newSize = array.length - 1;
+
+		if (array.length == 0 || index == -1) {
+			return null;
+		}
+		
 		@SuppressWarnings("unchecked")
 		E element = (E)array[index]; // Store element that will be removed
 
@@ -192,12 +198,25 @@ public class MyArrayList<E> implements ListADT<E>
 			return element;
 		}
 
-		if (array.length == 0) {
-			return null;
+		if (array.length == 1 && index == 0) {
+			this.clear();
+			return element; // Return removed element
+		} else if (index == 0) {
+			Object[] newArray = new Object[newSize]; // Create smaller array
+
+			System.arraycopy(array, 1, newArray, 0, newSize); // Copy all but first element to new array
+			array = newArray;
+			return element;
+		} else if (index == newSize) {
+			Object[] newArray = new Object[newSize]; // Create smaller array
+
+			System.arraycopy(array, 0, newArray, 0, newSize); // Copy all but last element to new array
+			array = newArray;
+			return element; // Return removed element
 		}
 
-		Object[] firstSegment = new Object[index]; // Create array to hold first segment
-		Object[] secondSegment = new Object[array.length - index]; // Create array to hold second segment
+		Object[] firstSegment = new Object[newSize]; // Create array to hold first segment
+		Object[] secondSegment = new Object[array.length - newSize]; // Create array to hold second segment
 		
 		System.arraycopy(array, 0, firstSegment, 0, firstSegment.length); // Copy segment from before index
 		System.arraycopy(array, index + 1, secondSegment, 0, secondSegment.length); // Copy segment from after index
@@ -227,17 +246,34 @@ public class MyArrayList<E> implements ListADT<E>
 		}
 
 		int index = linearSearch(toRemove);
+		int newSize = array.length - 1;
+
+		if (array.length == 0 || index == -1) {
+			return null;
+		}
 
 		@SuppressWarnings("unchecked")
 		E element = (E)array[index]; // Store element that will be removed
-
+		
 		if (array.length == 1 && index == 0) {
 			this.clear();
+			return element; // Return removed element
+		} else if (index == 0) {
+			Object[] newArray = new Object[newSize]; // Create smaller array
+
+			System.arraycopy(array, 1, newArray, 0, newSize); // Copy all but first element to new array
+			array = newArray;
 			return element;
+		} else if (index == newSize) {
+			Object[] newArray = new Object[newSize]; // Create smaller array
+
+			System.arraycopy(array, 0, newArray, 0, newSize); // Copy all but last element to new array
+			array = newArray;
+			return element; // Return removed element
 		}
-		// TODO: Redo everything, this is too specific, only accounts for middle indexes
-		Object[] firstSegment = new Object[index]; // Create array to hold first segment
-		Object[] secondSegment = new Object[array.length - index]; // Create array to hold second segment
+
+		Object[] firstSegment = new Object[newSize]; // Create array to hold first segment
+		Object[] secondSegment = new Object[array.length - newSize]; // Create array to hold second segment
 		
 		System.arraycopy(array, 0, firstSegment, 0, firstSegment.length); // Copy segment from before index
 		System.arraycopy(array, index + 1, secondSegment, 0, secondSegment.length); // Copy segment from after index
@@ -368,14 +404,15 @@ public class MyArrayList<E> implements ListADT<E>
 
 		if (toHold.length < size()) {
 			@SuppressWarnings("unchecked")
-			E[] newArray = (E[]) new Object[size()];
+			E[] newArray = (E[]) java.lang.reflect.Array.newInstance(
+				toHold.getClass().getComponentType(),
+				size()
+			);
 			toHold = newArray;
 		}
 		
 		for (int i = 0; i < size(); i++) {
-			@SuppressWarnings("unchecked")
-			E[] newArray = (E[]) new Object[size()];
-			toHold[i] = newArray[i];
+			toHold[i] = this.get(i);
 		}
 
 		return toHold;
