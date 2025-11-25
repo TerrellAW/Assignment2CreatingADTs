@@ -1,4 +1,4 @@
-package exceptions
+package exceptions;
 
 /**
  * Custom exception class for stack
@@ -9,7 +9,7 @@ public class EmptyStackException extends Exception {
     /**
      * constructor of an exception
      */
-    public EmptyQueueException() {
+    public EmptyStackException() {
         super();
     }
 
@@ -17,7 +17,7 @@ public class EmptyStackException extends Exception {
      * constructor for an exception with a message paratment
      * @param message the error message
      */
-    public EmptyQueueException(String message) {
-        super(message)
+    public EmptyStackException(String message) {
+        super(message);
     }
 }
