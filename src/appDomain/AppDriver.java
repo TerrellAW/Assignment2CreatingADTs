@@ -1,4 +1,9 @@
 package appDomain;
+
+import java.io.FileReader;
+import java.io.IOException;
+import implementations.XMLParser;
+
 /**
  * <p>
  * This application driver code is designed to be used as a basis for the
@@ -11,29 +16,32 @@ public class AppDriver
 {
 
 	/**
-	 * Uses command line arguments to determine which functions should be called.
+	 * Uses command line arguments to determine good user input.
 	 *
 	 * @author TerrellAW
-	 * @version 13-10-2025
+	 * @author Estefano Campana
+	 * @version 1.1
 	 * @param args Command line arguments taken from main.
 	 * @param config Config class object that contains all arguments from user.
 	 */
 	public static void argSwitch(String[] args, Config config) {
-		for (String arg : args) {
-    	 	if (arg.length() < 2) {
-    			continue;
-    		}
-
-			String flag = arg.substring(0, 2);
-
-			switch (flag.toLowerCase()) {
-			case "-f":
-				config.setFilePath(arg.substring(2));
-				break;
-			default:
-				break;
-			}
+		//if there is more than 1 argument.
+		if(args.length != 1) 
+		{
+			System.err.println("Usage: java -jar Parjer.jar <file.xml>.");
+			System.exit(1);
 		}
+		//takes the first argument
+		String arg = args[0];
+		
+		//if it is not an XML file.
+		if(!arg.toLowerCase().endsWith(".xml")) {
+			System.err.println("Error: input file must be an .xml file.");
+			System.exit(1);
+		}
+		
+		//set the config path to be this argument.
+		config.setFilePath(arg);
 	}
 
 	/**
@@ -48,18 +56,27 @@ public class AppDriver
 		
 		//Switches the methods to sort depending on the input.
 		argSwitch(args, config);
-
-		// Get file path from config and read file
-		ArrayList<ShapeObject> shapeObjects = ShapeObjectManager.readFile(config.getFilePath());
-
-		// Convert ArrayList to array for sorting
-		ShapeObject[] shapes = shapeObjects.toArray(new ShapeObject[0]);
-
-		// Display results
-		ShapeObjectManager.displaySortedSample(shapes, config);
-		String sortName = config.getSortType().getDisplayName();
-		System.out.println(sortName + " run time was: " + (endTime - startTime) + " milliseconds");
-
+		
+		//try catch block to ensure that the file exists.
+		try(java.io.BufferedReader br = new java.io.BufferedReader(new FileReader(config.getFilePath())))
+		{
+			String line;
+			//Creates a new instance of the XML parser.
+			XMLParser parser = new XMLParser();
+			//skips first line of the document.
+			br.readLine();
+			//while there is content, parse each line.
+			while((line = br.readLine()) != null)
+			{
+				parser.parse(line);
+			}
+			//print results or errors.
+			parser.checkFile();
+		}
+		catch(IOException e) 
+		{
+			System.err.println(e.getMessage());
+		}
 	}
 
 

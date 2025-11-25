@@ -2,9 +2,9 @@ package appDomain;
 
 /**
  * Contains fields and methods for configuring the program with command line arguments.
- *
  * @author TerrellAW
- * @version 13-10-2025
+ * @author Estefano Campana
+ * @version 1.1
  */
 public class Config {
 	private String filePath;
