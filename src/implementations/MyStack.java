@@ -1,6 +1,7 @@
 package implementations;
 
-import exceptions.EmptyStackException;
+import utilities.StackADT;
+import java.util.EmptyStackException;
 import java.util.NoSuchElementException;
 
 /**
@@ -79,7 +80,7 @@ public class MyStack<E> implements StackADT<E> {
     @Override
     public E pop() throws EmptyStackException {
         if (isEmpty())
-            throw new EmptyStackException("Pop from empty stack.");
+            throw new EmptyStackException();
 
         E value = top.data;
         top = top.next;
@@ -99,7 +100,7 @@ public class MyStack<E> implements StackADT<E> {
     @Override
     public E peek() throws EmptyStackException {
         if (isEmpty())
-            throw new EmptyStackException("Peek from empty stack.");
+            throw new EmptyStackException();
         return top.data;
     }
 
