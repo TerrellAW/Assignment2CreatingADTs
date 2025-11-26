@@ -164,7 +164,7 @@ public class XMLParser
 			//else add the tag to the extra queue.
 			else 
 			{
-				errorQ.add(new XMLError(tag, prevLine));
+				errorQ.add(new XMLError(tag, currentLine));
 			}
 		}
 
