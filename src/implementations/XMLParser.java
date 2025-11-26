@@ -27,7 +27,11 @@ public class XMLParser
 	/**
 	 * Integer for tracking the current line number.
 	 */
-	private int currentLine = 1;
+	private int currentLine = 2;
+	/**
+	 * Integer for tracking previous opening tag's line.
+	 */
+	private int prevLine = 1;
 	
 	/**
 	 * Method to parse a single XML line.
@@ -90,6 +94,8 @@ public class XMLParser
 			String tagName = getTagName(tag);
 			//pushes it to stack.
 			stack.push(tagName);
+			//stores tag's line
+			prevLine = currentLine;
 		}
 		/**
 		 * Method used to get the name of the tag, without any special characters.
@@ -146,7 +152,7 @@ public class XMLParser
 				{
 					//Add the head of the stack into error queue.
 					String unclosedTag = stack.pop();
-					errorQ.add(new XMLError(unclosedTag, currentLine));
+					errorQ.add(new XMLError(unclosedTag, prevLine));
 				}
 				//if the stack is not empty.
 				if(!stack.isEmpty()) 
@@ -158,7 +164,7 @@ public class XMLParser
 			//else add the tag to the extra queue.
 			else 
 			{
-				errorQ.add(new XMLError(tag, currentLine));
+				errorQ.add(new XMLError(tag, prevLine));
 			}
 		}
 
