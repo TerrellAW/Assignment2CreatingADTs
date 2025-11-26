@@ -1,6 +1,7 @@
 package implementations;
 
-import exceptions.EmptyStackException;
+//import exceptions.EmptyStackException;
+import java.util.EmptyStackException;
 import java.util.NoSuchElementException;
 
 /**

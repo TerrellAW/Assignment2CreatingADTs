@@ -2,8 +2,7 @@ package utilities;
 
 import java.util.*;
 import java.io.*;
-import exceptions.EmptyStackException;
-
+import java.util.EmptyStackException;
 
 /**
  * This is the professional Stack Interface for Object-Oriented Programming 3
