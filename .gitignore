@@ -12,3 +12,6 @@
 # Swap files
 *.swp
 
+# Windows files
+desktop.ini
+
