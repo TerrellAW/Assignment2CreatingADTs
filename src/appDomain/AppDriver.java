@@ -69,6 +69,7 @@ public class AppDriver
 			while((line = br.readLine()) != null)
 			{
 				parser.parse(line);
+				parser.incrementLine();
 			}
 			//print results or errors.
 			parser.checkFile();

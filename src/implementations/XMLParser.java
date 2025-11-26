@@ -3,6 +3,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Queue;
+import exceptions.XMLError;
 
 /**
  * Class that holds all methods for the XML parser.
@@ -18,11 +19,15 @@ public class XMLParser
 	/**
 	 * A queue of errors for the parser.
 	 */
-	private Queue<String> errorQ = new LinkedList<>();
+	private Queue<XMLError> errorQ = new LinkedList<>();
 	/**
 	 * A queue for extra tags found.
 	 */
 	private Queue<String> extrasQ = new LinkedList<>();
+	/**
+	 * Integer for tracking the current line number.
+	 */
+	private int currentLine = 1;
 	
 	/**
 	 * Method to parse a single XML line.
@@ -126,7 +131,7 @@ public class XMLParser
 				return;
 			}
 			//If errorQ is not empty and the head matches the tag.
-			if(!errorQ.isEmpty() && errorQ.peek().equals(tag)) 
+			if(!errorQ.isEmpty() && errorQ.peek().getTagName().equals(tag)) 
 			{
 				//Removes the head of the error queue.
 				errorQ.poll();
@@ -136,7 +141,7 @@ public class XMLParser
 			if(stack.isEmpty())
 			{
 				//Add the tag into the error queue.
-				errorQ.add(tag);
+				errorQ.add(new XMLError(tag, currentLine));
 				return;
 			}
 			//If stack already contains this tag.
@@ -146,7 +151,8 @@ public class XMLParser
 				while(!stack.isEmpty() && !stack.peek().equals(tag)) 
 				{
 					//Add the head of the stack into error queue.
-					errorQ.add(stack.pop());
+					String unclosedTag = stack.pop();
+					errorQ.add(new XMLError(unclosedTag, currentLine));
 				}
 				//if the stack is not empty.
 				if(!stack.isEmpty()) 
@@ -158,8 +164,16 @@ public class XMLParser
 			//else add the tag to the extra queue.
 			else 
 			{
-				extrasQ.add(tag);
+				errorQ.add(new XMLError(tag, currentLine));
 			}
+		}
+
+	/**
+	 * Method to increment the current line number.
+	 * @author TerrellAW
+	 */
+		public void incrementLine() {
+			currentLine++;
 		}
 
 	/**
@@ -169,21 +183,23 @@ public class XMLParser
 	 */
 	public void checkFile()
 	{
-		//delete these
-		System.out.println(stack);
-		System.out.println(errorQ);
-		System.out.println(extrasQ);
 		//while the stack is not empty.
 		while(!stack.isEmpty()) 
 		{
 			//add all items into error queue.
-			errorQ.add(stack.pop());
+			String unclosedTag = stack.pop();
+			errorQ.add(new XMLError(unclosedTag, currentLine));
 		}
 		//if both the error queue and extras queue is empty.
 		if(errorQ.isEmpty() && extrasQ.isEmpty()) 
 		{
 			 System.out.println("XML document is constructed correctly.");
 			 return;
+		}
+
+		// print all errors
+		while(!errorQ.isEmpty()) {
+			System.out.println(errorQ.poll());
 		}
 	}
 }
