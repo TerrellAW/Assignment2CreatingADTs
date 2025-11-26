@@ -23,7 +23,7 @@ public class XMLParser
 	/**
 	 * A queue for extra tags found.
 	 */
-	private Queue<String> extrasQ = new LinkedList<>();
+	private Queue<XMLError> extrasQ = new LinkedList<>();
 	/**
 	 * Integer for tracking the current line number.
 	 */
@@ -47,7 +47,7 @@ public class XMLParser
 				if (start == -1) break;
 				
 				//search for the end of the tag.
-				int end = line.indexOf('>',i);
+				int end = line.indexOf('>',start);
 				//if there is no end, break.
 				if (end == -1) break;
 				
@@ -130,13 +130,7 @@ public class XMLParser
 				stack.pop();
 				return;
 			}
-			//If errorQ is not empty and the head matches the tag.
-			if(!errorQ.isEmpty() && errorQ.peek().getTagName().equals(tag)) 
-			{
-				//Removes the head of the error queue.
-				errorQ.poll();
-				return;
-			}
+
 			//If the stack is empty.
 			if(stack.isEmpty())
 			{
@@ -201,5 +195,6 @@ public class XMLParser
 		while(!errorQ.isEmpty()) {
 			System.out.println(errorQ.poll());
 		}
+
 	}
 }
