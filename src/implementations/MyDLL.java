@@ -1,5 +1,6 @@
 package implementations;
 
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 import utilities.Iterator;
@@ -34,6 +35,13 @@ public class MyDLL<E> implements Iterator<E>, ListADT<E> {
 	@Override
 	public int size() {
 		return size;
+	}
+	/**
+	 * Method used to return the head of this list.
+	 * @return
+	 */
+	public MyDLLNode<E> getHead() {
+		return this.head;
 	}
 
 	/**
@@ -347,7 +355,7 @@ public class MyDLL<E> implements Iterator<E>, ListADT<E> {
 		}
 
 		if (toHold.length < size) {
-			toHold = (E[]) new Object[size];
+			return Arrays.copyOf(this.toArray(), size, (Class<? extends E[]>) toHold.getClass());
 		}
 		
 		MyDLLNode<E> current = head;

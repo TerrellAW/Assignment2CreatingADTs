@@ -12,7 +12,7 @@ public class Config {
 	// Setters
 
 	public void setFilePath(String filePath) {
-		this.filePath = filePath;
+		this.filePath = "res/"+filePath;
 	}
 
 	// Getters
