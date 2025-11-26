@@ -8,6 +8,7 @@ import exceptions.XMLError;
 /**
  * Class that holds all methods for the XML parser.
  * @author Estefano Campana
+ * @author TerrellAW
  * @version 1.0
  */
 public class XMLParser 
@@ -125,6 +126,7 @@ public class XMLParser
 		 * Method used to check if a tag should be input into errorQ or extrasQ.
 		 * @param tag A string containing the name of the tag.
 		 * @author Estefano Campana
+		 * @author TerrellAW
 		 * @version 1.0
 		 */
 		private void handleEndTag(String tag) 
@@ -171,6 +173,7 @@ public class XMLParser
 	/**
 	 * Method to increment the current line number.
 	 * @author TerrellAW
+	 * @version 1.0
 	 */
 		public void incrementLine() {
 			currentLine++;
@@ -179,6 +182,7 @@ public class XMLParser
 	/**
 	 * Method used to print the errors or the correct building of the XML document.
 	 * @author Estefano Campana
+	 * @author TerrellAW
 	 * @version 1.0
 	 */
 	public void checkFile()
