@@ -186,8 +186,8 @@ public class MyArrayList<E> implements ListADT<E>
 		
 		int newSize = array.length - 1;
 
-		if (array.length == 0 || index == -1) {
-			return null;
+		if (newSize < 0) {
+			throw new IndexOutOfBoundsException("Index" + index + ", Size: " + size());
 		}
 		
 		@SuppressWarnings("unchecked")
@@ -215,8 +215,8 @@ public class MyArrayList<E> implements ListADT<E>
 			return element; // Return removed element
 		}
 
-		Object[] firstSegment = new Object[newSize]; // Create array to hold first segment
-		Object[] secondSegment = new Object[array.length - newSize]; // Create array to hold second segment
+		Object[] firstSegment = new Object[index]; // Create array to hold first segment
+		Object[] secondSegment = new Object[newSize - index]; // Create array to hold second segment
 		
 		System.arraycopy(array, 0, firstSegment, 0, firstSegment.length); // Copy segment from before index
 		System.arraycopy(array, index + 1, secondSegment, 0, secondSegment.length); // Copy segment from after index
@@ -272,8 +272,8 @@ public class MyArrayList<E> implements ListADT<E>
 			return element; // Return removed element
 		}
 
-		Object[] firstSegment = new Object[newSize]; // Create array to hold first segment
-		Object[] secondSegment = new Object[array.length - newSize]; // Create array to hold second segment
+		Object[] firstSegment = new Object[index]; // Create array to hold first segment
+		Object[] secondSegment = new Object[newSize - index]; // Create array to hold second segment
 		
 		System.arraycopy(array, 0, firstSegment, 0, firstSegment.length); // Copy segment from before index
 		System.arraycopy(array, index + 1, secondSegment, 0, secondSegment.length); // Copy segment from after index
