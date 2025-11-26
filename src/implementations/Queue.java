@@ -9,7 +9,7 @@ import java.io.*;
  * Queue operations, and includes several helper methods that will give the data
  * structure more flexibility and use.
  */
-public interface QueueADT<E>
+public interface Queue<E>
 {
 	/**
 	 * Enqueue will place the added item at the last position in the queue. This
